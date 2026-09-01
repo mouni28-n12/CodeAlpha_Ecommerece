@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>{{ product.name }}</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        nav {
+            background-color: #222;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+        .product-detail {
+            width: 90%;
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+
+            display: flex;
+            gap: 50px;
+            align-items: center;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .product-detail img {
+            width: 350px;
+            height: 350px;
+            object-fit: contain;
+        }
+
+        .details {
+            flex: 1;
+        }
+
+        .details h1 {
+            font-size: 36px;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .price {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .stock {
+            font-size: 17px;
+        }
+
+        .cart-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 13px 25px;
+            background-color: #222;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 15px;
+            margin-left: 10px;
+            padding: 13px 25px;
+            background-color: #777;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <h2>🛒 My E-commerce Store</h2>
+
+    <div>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="{% url 'cart' %}">
+            Cart 🛒
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="product-detail">
+
+
+    {% if product.image %}
+
+        <img
+            src="{{ product.image }}"
+            alt="{{ product.name }}"
+        >
+
+    {% endif %}
+
+
+    <div class="details">
+
+        <h1>
+            {{ product.name }}
+        </h1>
+
+
+        <p class="description">
+            {{ product.description }}
+        </p>
+
+
+        <p class="price">
+            ₹{{ product.price }}
+        </p>
+
+
+        <p class="stock">
+            Available Stock: {{ product.stock }}
+        </p>
+
+
+        <a
+            class="cart-button"
+            href="{% url 'add_to_cart' product.id %}"
+        >
+            🛒 Add to Cart
+        </a>
+
+
+        <a
+            class="back-button"
+            href="/"
+        >
+            ← Back
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

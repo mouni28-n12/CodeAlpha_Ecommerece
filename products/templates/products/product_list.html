@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>My E-commerce Store</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        nav {
+            background-color: #222;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+        .hero {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+        }
+
+        .search-box {
+            text-align: center;
+            margin: 25px;
+        }
+
+        .search-box input {
+            padding: 12px;
+            width: 280px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 12px 20px;
+            margin-left: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #222;
+            color: white;
+            cursor: pointer;
+        }
+
+        .products {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.12);
+
+            transition: 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .product-name {
+            text-decoration: none;
+            color: #222;
+        }
+
+        .product-card h2 {
+            font-size: 23px;
+        }
+
+        .description {
+            color: #555;
+            min-height: 45px;
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .stock {
+            color: #444;
+            margin-bottom: 18px;
+        }
+
+        .buy-button {
+            display: inline-block;
+            padding: 11px 22px;
+
+            background-color: #222;
+            color: white;
+
+            text-decoration: none;
+            border-radius: 6px;
+
+            font-weight: bold;
+        }
+
+        .buy-button:hover {
+            background-color: #444;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation Bar -->
+
+<nav>
+
+    <h2>🛒 My E-commerce Store</h2>
+
+    <div>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="{% url 'cart' %}">
+            Cart 🛒
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- Hero Section -->
+
+<section class="hero">
+
+    <h1>Welcome to Our Online Store</h1>
+
+    <p>
+        Quality products at great prices
+    </p>
+
+</section>
+
+
+<!-- Search -->
+
+<form method="GET" class="search-box">
+
+    <input
+        type="text"
+        name="q"
+        placeholder="Search products..."
+        value="{{ request.GET.q }}"
+    >
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+
+<!-- Products -->
+
+<div class="products">
+
+    {% for product in products %}
+
+    <div class="product-card">
+
+
+        {% if product.image %}
+
+            <img
+                src="{{ product.image }}"
+                alt="{{ product.name }}"
+            >
+
+        {% endif %}
+
+
+        <!-- Product Details Link -->
+
+        <a
+            href="{% url 'product_detail' product.id %}"
+            class="product-name"
+        >
+
+            <h2>
+                {{ product.name }}
+            </h2>
+
+        </a>
+
+
+        <p class="description">
+            {{ product.description }}
+        </p>
+
+
+        <p class="price">
+            ₹{{ product.price }}
+        </p>
+
+
+        <p class="stock">
+            Stock: {{ product.stock }}
+        </p>
+
+
+        <a
+            class="buy-button"
+            href="{% url 'add_to_cart' product.id %}"
+        >
+            🛒 Add to Cart
+        </a>
+
+
+    </div>
+
+
+    {% empty %}
+
+        <p>No products available.</p>
+
+    {% endfor %}
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026 My E-commerce Store
+    </p>
+
+</footer>
+
+
+</body>
+</html>
