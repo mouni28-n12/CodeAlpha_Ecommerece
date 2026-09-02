@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = [
+
     path(
         '',
         views.product_list,
@@ -49,5 +50,26 @@ urlpatterns = [
         'checkout/',
         views.checkout,
         name='checkout'
+    ),
+
+    # Registration
+    path(
+        'register/',
+        views.register,
+        name='register'
+    ),
+
+    # Login
+    path(
+        'login/',
+        views.user_login,
+        name='login'
+    ),
+
+    # Logout
+    path(
+        'logout/',
+        views.user_logout,
+        name='logout'
     ),
 ]
